@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Label, Form, Input, Button } from './Styled';
 import { nanoid } from 'nanoid';
