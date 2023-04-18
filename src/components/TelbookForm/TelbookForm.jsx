@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Label, Form, Input, Button } from './Styled';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 const INITIAL_STATE = {
   name: '',
@@ -8,7 +9,7 @@ const INITIAL_STATE = {
 };
 
 export default class TelbookForm extends Component {
-  static propTypes = {};
+  static propTypes = { onSubmit: PropTypes.func.isRequired };
 
   state = { ...INITIAL_STATE };
 
