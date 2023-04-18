@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 export class App extends Component {
   static propTypes = {
-    id: PropTypes.string,
     name: PropTypes.string,
     number: PropTypes.string,
   };
