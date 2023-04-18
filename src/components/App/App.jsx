@@ -4,14 +4,15 @@ import TelbookForm from 'components/TelbookForm/TelbookForm';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
+const Accent = styled.span`
+  font-weight: 700;
+  color: red;
+`;
 export class App extends Component {
-  static propTypes = {
-    name: PropTypes.string,
-    number: PropTypes.string,
-  };
-
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -28,6 +29,30 @@ export class App extends Component {
       name,
       number,
     };
+
+    const isIncludeName = this.state.contacts.some(
+      value => value.name.toLowerCase() === name.toLowerCase()
+    );
+    const isIncludeNumber = this.state.contacts.some(
+      value => value.number.split('-').join('') === number.split('-').join('')
+    );
+
+    if (isIncludeName) {
+      toast.error(() => (
+        <div>
+          <Accent>{name}</Accent> is already in contacts
+        </div>
+      ));
+      return;
+    }
+    if (isIncludeNumber) {
+      toast.error(() => (
+        <div>
+          phonenumber <Accent>{number}</Accent> is already in contacts
+        </div>
+      ));
+      return;
+    }
 
     this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
@@ -75,6 +100,18 @@ export class App extends Component {
             />
           </Container>
         </Section>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </>
     );
   }
